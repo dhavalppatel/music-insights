@@ -1,1 +1,4 @@
-<p>home works!</p>
+<div>
+    <button *ngIf="!isAuthed" class="btn btn-primary" (click)="requestAuth()">Spotify Auth</button>
+    <p *ngIf="isAuthed">Token: [{{this.token}}]</p>
+</div>
