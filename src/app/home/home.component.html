@@ -1,4 +1,6 @@
 <div>
     <button *ngIf="!isAuthed" class="btn btn-primary" (click)="requestAuth()">Spotify Auth</button>
     <p *ngIf="isAuthed">Token: [{{this.token}}]</p>
+    <p *ngIf="isAuthed">Current Song: [{{this.currentSong?.item.name}}]</p>
+    <p *ngIf="isAuthed">Current Album: [{{this.currentSong?.item.album.name}}]</p>
 </div>
