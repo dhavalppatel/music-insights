@@ -1,0 +1,12 @@
+<div class="card flex-row flex-wrap">
+  <div class="card-header w-100">
+    Now Playing
+  </div>
+  <img class="card-img-top w-25" src="{{this.currentSong?.albumArtUrl}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{this.currentSong?.title}}</h5>
+    <p class="card-text">
+      {{currentSong?.artists[0].name}} on {{this.currentSong?.album}}
+    </p>
+  </div>
+</div>

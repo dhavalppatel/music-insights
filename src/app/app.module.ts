@@ -8,6 +8,8 @@ import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { CallbackComponent } from './auth/callback/callback.component';
+import { NowPlayingComponent } from './now-playing/now-playing.component';
+import { RecommendationsComponent } from './recommendations/recommendations.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { CallbackComponent } from './auth/callback/callback.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    CallbackComponent
+    CallbackComponent,
+    NowPlayingComponent,
+    RecommendationsComponent
   ],
   imports: [
     BrowserModule,

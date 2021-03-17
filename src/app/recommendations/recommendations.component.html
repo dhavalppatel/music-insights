@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row mb-3">
+    <div class="col"><h3>Recommendations</h3></div>
+    <div class="col text-right"><button (click)="refreshRecommendations()" class="btn btn-primary">Refresh</button></div>
+  </div>
+  <div class="col">
+    <div class="card-deck row">
+      <div class="card" style="width: 14rem;" *ngFor="let song of songs.tracks">
+        <img class="card-img-top" src="{{song.album.images[0].url}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{song.name}}</h5>
+          <p class="card-text">{{song.artists[0].name}}</p>
+          <a href="#" class="btn btn-primary">Play</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
