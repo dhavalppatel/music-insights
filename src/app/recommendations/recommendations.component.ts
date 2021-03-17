@@ -37,12 +37,18 @@ export class RecommendationsComponent implements OnInit {
 
   refreshRecommendations() {
     this.spotifyService.getCurrentSong()
-    .subscribe(data => {
-      this.spotifyService.getRecommendations(data)
-        .subscribe(data => {
-          this.songs = data;
-          console.log(this.songs);
-        });
-    });
+      .subscribe(data => {
+        this.spotifyService.getRecommendations(data)
+          .subscribe(data => {            
+            this.songs = data;
+          });
+      });
+  }
+
+  playSong(uri: string) {
+    this.spotifyService.playSong(uri)
+      .subscribe(data => { });
+    // this.spotifyService.skipSong()
+    //   .subscribe(data => { });
   }
 }

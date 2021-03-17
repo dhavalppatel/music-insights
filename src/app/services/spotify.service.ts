@@ -23,13 +23,13 @@ export class SpotifyService {
   private baseRecommendationUrl = 'https://api.spotify.com/v1/recommendations';
 
   private redirectUrl = 'http://localhost:4200/callback'
-  private scope = 'user-read-playback-state'
+  private scope = 'user-read-playback-state app-remote-control streaming'
 
-  public currentSong: ISong = { 
+  public currentSong: ISong = {
     title: '',
     artists: [],
     album: ''
-   };
+  };
 
   private authUrl = this.baseAuthUrl + '?client_id='
     + this.clientId + '&response_type=token&redirect_uri='
@@ -69,7 +69,7 @@ export class SpotifyService {
     const nowPlayingUrl = this.baseNowPlayingUrl + '?market=US';
 
     return this.http.get(nowPlayingUrl, requestOptions).pipe(
-      map((res) => {       
+      map((res) => {
         // console.log(res);
         var song: ISong = {
           trackId: (res as any).item.id,
@@ -94,7 +94,7 @@ export class SpotifyService {
       headers: new HttpHeaders(headerDict),
     };
 
-    const recommendationsUrl = this.baseRecommendationUrl + '?limit=3&market=US&seed_artists=' + song.artistId + '&seed_tracks=' + song.trackId;
+    const recommendationsUrl = this.baseRecommendationUrl + '?limit=9&market=US&seed_artists=' + song.artistId + '&seed_tracks=' + song.trackId;
 
     return this.http.get(recommendationsUrl, requestOptions).pipe(
       map((res) => {
@@ -109,4 +109,45 @@ export class SpotifyService {
       })
     );
   }
+
+  playSong(uri: string) {
+    const headerDict = {
+      'Authorization': 'Bearer ' + this.token
+    }
+
+    const data = {
+      "context_uri": uri,
+      "position_ms": 0
+    }
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+
+    };
+
+    const playUrl = 'https://api.spotify.com/v1/me/player/play';
+
+    return this.http.put(playUrl, data, requestOptions).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
+  // skipSong() {
+  //   const headerDict = {
+  //     'Authorization': 'Bearer ' + this.token
+  //   }
+
+  //   const requestOptions = {
+  //     headers: new HttpHeaders(headerDict),
+  //   };
+
+  //   const skipUrl = 'https://api.spotify.com/v1/me/player/next';
+
+  //   return this.http.post(skipUrl, requestOptions).pipe(
+  //     map((res) => {
+
+  //     })
+  //   );
+  // }
 }

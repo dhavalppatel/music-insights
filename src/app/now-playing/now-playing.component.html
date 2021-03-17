@@ -1,4 +1,4 @@
-<div class="card flex-row flex-wrap">
+<div *ngIf="currentSong" class="card flex-row flex-wrap">
   <div class="card-header w-100">
     Now Playing
   </div>
@@ -9,4 +9,8 @@
       {{currentSong?.artists[0].name}} on {{this.currentSong?.album}}
     </p>
   </div>
+</div>
+
+<div *ngIf="!currentSong">
+  <h3>Play a song on Spotify to get started.</h3>
 </div>
