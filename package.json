@@ -1,6 +1,9 @@
 {
   "name": "music-insights",
   "version": "0.0.0",
+  "engines": {
+    "node": "15.x"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
