@@ -22,7 +22,7 @@ export class SpotifyService {
   private baseNowPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
   private baseRecommendationUrl = 'https://api.spotify.com/v1/recommendations';
 
-  private redirectUrl = 'http://localhost:4200/callback'
+  private redirectUrl = 'https://music-insights-app.herokuapp.com/callback'
   private scope = 'user-read-playback-state app-remote-control streaming'
 
   public currentSong: ISong = {
