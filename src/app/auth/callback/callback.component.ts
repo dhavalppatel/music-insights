@@ -12,20 +12,20 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class CallbackComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private spotifyService: SpotifyService) { }
+    private router: Router,
+    private spotifyService: SpotifyService) { }
 
   ngOnInit(): void {
     let params = this.route.snapshot.fragment;
 
     const data = JSON.parse(
       '{"' +
-        decodeURI(params)
+      decodeURI(params)
         .replace(/"/g, '\\"')
         .replace(/&/g, '","')
         .replace(/=/g, '":"') +
       '"}'
-      );
+    );
 
     this.spotifyService.setToken(data.access_token);
 

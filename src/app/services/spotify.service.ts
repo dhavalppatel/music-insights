@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ISong } from '../models/song';
@@ -17,12 +17,13 @@ export class SpotifyService {
   private token = "";
   private isAuthed: boolean = false;
 
-  private clientId = '0fec3559ed9b41cda9a33ae742a95624';
-  private baseAuthUrl = 'https://accounts.spotify.com/authorize';
+  private clientId = environment.clientId;
+  private baseAuthUrl = environment.baseAuthUrl;
+  private baseUrl = environment.baseUrl;
   private baseNowPlayingUrl = 'https://api.spotify.com/v1/me/player/currently-playing';
   private baseRecommendationUrl = 'https://api.spotify.com/v1/recommendations';
 
-  private redirectUrl = 'https://music-insights-app.herokuapp.com/callback'
+  private redirectUrl = environment.redirectUrl;
   private scope = 'user-read-playback-state app-remote-control streaming'
 
   public currentSong: ISong = {
@@ -70,7 +71,6 @@ export class SpotifyService {
 
     return this.http.get(nowPlayingUrl, requestOptions).pipe(
       map((res) => {
-        // console.log(res);
         var song: ISong = {
           trackId: (res as any).item.id,
           artistId: (res as any).item.artists[0].id,
@@ -98,13 +98,6 @@ export class SpotifyService {
 
     return this.http.get(recommendationsUrl, requestOptions).pipe(
       map((res) => {
-        // var song: ISong = {
-        //   trackId: (res as any).item.id,
-        //   artistId: (res as any).item.artists[0].id,
-        //   title: (res as any).item.name,
-        //   album: (res as any).item.album.name,
-        //   artists: (res as any).item.artists
-        // }
         return res;
       })
     );
