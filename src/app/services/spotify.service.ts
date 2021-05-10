@@ -1,4 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from './../../environments/environment';
@@ -10,13 +11,8 @@ import { ISong } from '../models/song';
 @Injectable({
   providedIn: 'root'
 })
+
 export class SpotifyService {
-
-
-
-  private token = "";
-  private isAuthed: boolean = false;
-
   private clientId = environment.clientId;
   private baseAuthUrl = environment.baseAuthUrl;
   private baseUrl = environment.baseUrl;
@@ -39,28 +35,28 @@ export class SpotifyService {
 
 
   constructor(private router: Router,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private cookieService: CookieService) { }
 
   requestAuth() {
     window.location.href = this.authUrl;
   }
 
   setToken(token: string) {
-    this.token = token;
-    this.isAuthed = true;
+    this.cookieService.set('token', token, 30);
   }
 
   getIsAuthed(): boolean {
-    return this.isAuthed;
+    return this.cookieService.check('token');
   }
 
-  getToken(): string {
-    return this.token;
+  getToken(): string {   
+    return this.cookieService.get('token');
   }
 
-  getCurrentSong(): Observable<ISong> {
+  getCurrentSong(): Observable<ISong> {    
     const headerDict = {
-      'Authorization': 'Bearer ' + this.token
+      'Authorization': 'Bearer ' + this.getToken()
     }
 
     const requestOptions = {
@@ -87,7 +83,7 @@ export class SpotifyService {
 
   getRecommendations(song: ISong) {
     const headerDict = {
-      'Authorization': 'Bearer ' + this.token
+      'Authorization': 'Bearer ' + this.getToken()
     }
 
     const requestOptions = {
@@ -105,7 +101,7 @@ export class SpotifyService {
 
   playSong(uri: string) {
     const headerDict = {
-      'Authorization': 'Bearer ' + this.token
+      'Authorization': 'Bearer ' + this.getToken()
     }
 
     const data = {

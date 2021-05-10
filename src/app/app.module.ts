@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { NowPlayingComponent } from './now-playing/now-playing.component';
 import { RecommendationsComponent } from './recommendations/recommendations.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { RecommendationsComponent } from './recommendations/recommendations.comp
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

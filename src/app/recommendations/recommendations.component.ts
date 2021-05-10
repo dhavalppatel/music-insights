@@ -22,17 +22,6 @@ export class RecommendationsComponent implements OnInit {
             console.log(this.songs);
           });
       });
-
-
-
-    // this.update = setInterval(() => {
-    //   this.spotifyService.getRecommendations(this.spotifyService.currentSong)
-    //     .subscribe(data => {
-    //       this.songs = data;
-    //       console.log(data);
-
-    //     });
-    // }, 1000);
   }
 
   refreshRecommendations() {
@@ -48,7 +37,5 @@ export class RecommendationsComponent implements OnInit {
   playSong(uri: string) {
     this.spotifyService.playSong(uri)
       .subscribe(data => { });
-    // this.spotifyService.skipSong()
-    //   .subscribe(data => { });
   }
 }
