@@ -90,7 +90,9 @@ export class SpotifyService {
       headers: new HttpHeaders(headerDict),
     };
 
-    const recommendationsUrl = this.baseRecommendationUrl + '?limit=9&market=US&seed_artists=' + song.artistId + '&seed_tracks=' + song.trackId;
+    const recommendationsUrl = this.baseRecommendationUrl +
+    '?limit=9&market=US&seed_artists=' + song.artistId + 
+    '&seed_tracks=' + song.trackId;
 
     return this.http.get(recommendationsUrl, requestOptions).pipe(
       map((res) => {
@@ -116,6 +118,24 @@ export class SpotifyService {
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
 
     return this.http.put(playUrl, data, requestOptions).pipe(
+      map((res) => {
+        return res;
+      })
+    );
+  }
+
+  getSongInformation(uri: string) {
+    const headerDict = {
+      'Authorization': 'Bearer ' + this.getToken()
+    }
+
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+
+    const getSongInformationUrl = 'https://api.spotify.com/v1/audio-features/' + uri;
+
+    return this.http.get(getSongInformationUrl, requestOptions).pipe(
       map((res) => {
         return res;
       })

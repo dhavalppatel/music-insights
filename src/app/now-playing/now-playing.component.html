@@ -1,16 +1,128 @@
 <div *ngIf="currentSong" class="card flex-row flex-wrap">
-  <div class="card-header w-100">
-    Now Playing
-  </div>
-  <img class="card-img-top w-25" src="{{this.currentSong?.albumArtUrl}}" alt="Card image cap">
+  <div class="card-header w-100">Now Playing</div>
+  <img
+    class="card-img w-25"
+    src="{{ this.currentSong?.albumArtUrl }}"
+    alt="Card image cap"
+  />
   <div class="card-body">
-    <h5 class="card-title">{{this.currentSong?.title}}</h5>
-    <p class="card-text">
-      {{currentSong?.artists[0].name}} on {{this.currentSong?.album}}
-    </p>
-  </div>
-</div>
+    <div class="card-text container">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title">{{ this.currentSong?.title }}</h5>
+          <b>{{ currentSong?.artists[0].name }}</b> on <b>{{ this.currentSong?.album }}</b>
+        </div>
+      </div>
 
-<div *ngIf="!currentSong">
-  <h3>Play a song on Spotify to get started.</h3>
+      <div class="row mt-1">
+        <div class="col-3">Danceability:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.danceability | percent}"
+            >
+              {{ currentSongInformation?.danceability | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row mt-1">
+        <div class="col-3">Energy:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.energy | percent}"
+            >
+              {{ currentSongInformation?.energy | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-3">Speechiness:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.speechiness | percent}"
+            >
+              {{ currentSongInformation?.speechiness | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-3">Instrumentalness:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.instrumentalness | percent}"
+            >
+              {{ currentSongInformation?.instrumentalness | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-3">Liveness:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.liveness | percent}"
+            >
+              {{ currentSongInformation?.liveness | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-3">Valence:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.valence | percent}"
+            >
+              {{ currentSongInformation?.valence | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-1">
+        <div class="col-3">Acousticness:</div>
+        <div class="col-9">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              [ngStyle]="{width: currentSongInformation?.acousticness | percent}"
+            >
+              {{ currentSongInformation?.acousticness | percent }}
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <div *ngIf="!currentSong">
+    <h3>Play a song on Spotify to get started.</h3>
+  </div>
 </div>
