@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isAuthed: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private spotifyService:SpotifyService) { }
+
+  ngOnInit(): void { }
+
+  ngAfterContentInit(): void {
+    console.log(this.isAuthed);
+    
+    this.isAuthed = this.spotifyService.getAuth();
+  }
+
+  logout(): void {
+    this.spotifyService.logout();
   }
 
 }

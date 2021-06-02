@@ -1,4 +1,9 @@
-<div *ngIf="currentSong" class="card flex-row flex-wrap">
+<div *ngIf="!isPlayingSong">
+  <h3>Play a song on Spotify to get started.</h3>
+  <h6>Make sure you're not in a private session</h6>
+</div>
+
+<div *ngIf="isPlayingSong" class="card flex-row flex-wrap">
   <div class="card-header w-100">Now Playing</div>
   <img
     class="card-img w-25"
@@ -10,7 +15,8 @@
       <div class="row">
         <div class="col">
           <h5 class="card-title">{{ this.currentSong?.title }}</h5>
-          <b>{{ currentSong?.artists[0].name }}</b> on <b>{{ this.currentSong?.album }}</b>
+          <b>{{ currentSong?.artists[0].name }}</b> on
+          <b>{{ this.currentSong?.album }}</b>
         </div>
       </div>
 
@@ -21,14 +27,16 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.danceability | percent}"
+              [ngStyle]="{
+                width: currentSongInformation?.danceability | percent
+              }"
             >
               {{ currentSongInformation?.danceability | percent }}
             </div>
           </div>
         </div>
       </div>
-      
+
       <div class="row mt-1">
         <div class="col-3">Energy:</div>
         <div class="col-9">
@@ -36,7 +44,7 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.energy | percent}"
+              [ngStyle]="{ width: currentSongInformation?.energy | percent }"
             >
               {{ currentSongInformation?.energy | percent }}
             </div>
@@ -51,7 +59,9 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.speechiness | percent}"
+              [ngStyle]="{
+                width: currentSongInformation?.speechiness | percent
+              }"
             >
               {{ currentSongInformation?.speechiness | percent }}
             </div>
@@ -66,7 +76,9 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.instrumentalness | percent}"
+              [ngStyle]="{
+                width: currentSongInformation?.instrumentalness | percent
+              }"
             >
               {{ currentSongInformation?.instrumentalness | percent }}
             </div>
@@ -81,7 +93,7 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.liveness | percent}"
+              [ngStyle]="{ width: currentSongInformation?.liveness | percent }"
             >
               {{ currentSongInformation?.liveness | percent }}
             </div>
@@ -96,7 +108,7 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.valence | percent}"
+              [ngStyle]="{ width: currentSongInformation?.valence | percent }"
             >
               {{ currentSongInformation?.valence | percent }}
             </div>
@@ -111,18 +123,15 @@
             <div
               class="progress-bar"
               role="progressbar"
-              [ngStyle]="{width: currentSongInformation?.acousticness | percent}"
+              [ngStyle]="{
+                width: currentSongInformation?.acousticness | percent
+              }"
             >
               {{ currentSongInformation?.acousticness | percent }}
             </div>
           </div>
         </div>
       </div>
-      
     </div>
-  </div>
-
-  <div *ngIf="!currentSong">
-    <h3>Play a song on Spotify to get started.</h3>
   </div>
 </div>

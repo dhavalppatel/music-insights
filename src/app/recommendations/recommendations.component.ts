@@ -19,7 +19,6 @@ export class RecommendationsComponent implements OnInit {
         this.spotifyService.getRecommendations(data)
           .subscribe(data => {
             this.songs = data;
-            console.log(this.songs);
           });
       });
   }

@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = this.spotifyService.getToken();
-    this.isAuthed = this.spotifyService.getIsAuthed();
+    this.isAuthed = this.spotifyService.getAuth();
   }
 
   requestAuth() {

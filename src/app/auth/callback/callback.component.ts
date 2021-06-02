@@ -28,7 +28,6 @@ export class CallbackComponent implements OnInit {
     );
 
     this.spotifyService.setToken(data.access_token);
-
     this.router.navigate(['/']);
   }
 }

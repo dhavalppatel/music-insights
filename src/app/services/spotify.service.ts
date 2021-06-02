@@ -42,11 +42,16 @@ export class SpotifyService {
     window.location.href = this.authUrl;
   }
 
+  logout() {
+    this.cookieService.delete('token');
+    window.location.href = '/';
+  }
+
   setToken(token: string) {
     this.cookieService.set('token', token, 30);
   }
 
-  getIsAuthed(): boolean {
+  getAuth(): boolean {
     return this.cookieService.check('token');
   }
 
@@ -63,20 +68,24 @@ export class SpotifyService {
       headers: new HttpHeaders(headerDict),
     };
 
-    const nowPlayingUrl = this.baseNowPlayingUrl + '?market=US';
+    const nowPlayingUrl = this.baseNowPlayingUrl + '?market=US'; 
 
     return this.http.get(nowPlayingUrl, requestOptions).pipe(
       map((res) => {
-        var song: ISong = {
-          trackId: (res as any).item.id,
-          artistId: (res as any).item.artists[0].id,
-          albumArtUrl: (res as any).item.album.images[0].url,
-          title: (res as any).item.name,
-          album: (res as any).item.album.name,
-          artists: (res as any).item.artists
+        if(res != null) {
+          var song: ISong = {
+            trackId: (res as any).item.id,
+            artistId: (res as any).item.artists[0].id,
+            albumArtUrl: (res as any).item.album.images[0].url,
+            title: (res as any).item.name,
+            album: (res as any).item.album.name,
+            artists: (res as any).item.artists
+          }
+          this.currentSong = song;
+          return song;
+        } else {
+          throw new Error("no song playing");
         }
-        this.currentSong = song;
-        return song;
       })
     );
   }
@@ -110,9 +119,9 @@ export class SpotifyService {
       "context_uri": uri,
       "position_ms": 0
     }
+    
     const requestOptions = {
-      headers: new HttpHeaders(headerDict),
-
+      headers: new HttpHeaders(headerDict)
     };
 
     const playUrl = 'https://api.spotify.com/v1/me/player/play';
