@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { SpotifyService } from '../services/spotify.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { SpotifyService } from '../services/spotify.service';
 })
 export class RecommendationsComponent implements OnInit {
   songs: any;
+  currentSong: any;
   update: any;
 
   constructor(private spotifyService: SpotifyService) { }
@@ -16,11 +17,25 @@ export class RecommendationsComponent implements OnInit {
   ngOnInit(): void {
     this.spotifyService.getCurrentSong()
       .subscribe(data => {
+        this.currentSong = data.trackId;
         this.spotifyService.getRecommendations(data)
           .subscribe(data => {
             this.songs = data;
           });
       });
+
+      setInterval(() => {
+        this.spotifyService.getCurrentSong()
+        .subscribe(data => {
+          if(this.currentSong != data.trackId) {
+            this.currentSong = data.trackId;
+            this.spotifyService.getRecommendations(data)
+              .subscribe(data => {
+                this.songs = data;
+              });
+          }
+        });                
+      }, 2500);
   }
 
   refreshRecommendations() {
@@ -31,6 +46,10 @@ export class RecommendationsComponent implements OnInit {
             this.songs = data;
           });
       });
+  }
+
+  saveToPlaylist() {
+
   }
 
   playSong(uri: string) {

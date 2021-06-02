@@ -1,5 +1,8 @@
 <div>
-  <button *ngIf="!isAuthed" class="btn btn-primary" (click)="requestAuth()">Spotify Auth</button>
+  <div *ngIf="!isAuthed" class="text-center">
+    <h3>Login to your Spotify account to get started.</h3>
+    <button class="btn btn-primary" (click)="requestAuth()">Spotify Auth</button>
+  </div>
   <div *ngIf="isAuthed">
     <app-now-playing></app-now-playing> <br>
     <app-recommendations></app-recommendations>
